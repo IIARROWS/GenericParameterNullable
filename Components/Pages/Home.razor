@@ -1,0 +1,25 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<RadioList T="Option" Items="dictionary" @bind-SelectedItem="SelectedNumber" />
+
+@code {
+
+	enum Option
+	{
+		Zero,
+		One,
+		Two,
+		Three
+	}
+	private Dictionary<Option, string> dictionary = new Dictionary<Option, string>
+	{
+		{ Option.Zero, "0" },
+		{ Option.One, "1" },
+		{ Option.Two, "2" },
+		{ Option.Three, "3" }
+	};
+
+	private Option SelectedNumber { get; set; }
+}

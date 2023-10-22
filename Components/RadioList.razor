@@ -1,0 +1,42 @@
+﻿@typeparam T 
+@* where T : notnull *@
+
+<table>
+	<tbody>
+		@foreach (var row in Items)
+		{
+			<tr @onclick="() => SelectedItem = row.Key">
+				<td>
+					@CheckboxIcon(row.Key)
+					@row.Value
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+@code {
+	[Parameter] public required Dictionary<T, String> Items { get; set; }
+
+	[Parameter] public T? SelectedItem { get; set; }
+
+	// private T? _selectedItem;
+	// [Parameter]
+	// public T? SelectedItem
+	// {
+	// 	get => _selectedItem;
+	// 	set
+	// 	{
+	// 		if (!EqualityComparer<T>.Default.Equals(_selectedItem, value) && (value == null || Items.ContainsKey(value)))
+	// 		{
+	// 			_selectedItem = value;
+	// 			StateHasChanged();
+	// 			SelectedItemChanged.InvokeAsync(value);
+	// 		}
+	// 	}
+	// }
+
+	[Parameter] public EventCallback<T?> SelectedItemChanged { get; set; }
+
+
+	private String CheckboxIcon(T value) => EqualityComparer<T>.Default.Equals(SelectedItem, value) ? "X" : "O";
+}
